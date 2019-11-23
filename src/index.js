@@ -1,10 +1,7 @@
 require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
-const uuidv4 = require('uuid');
 const admin = require('firebase');
-const turf = require('@turf/turf');
-const randToken = require('rand-token');
 const app = express();
 
 admin.initializeApp({
