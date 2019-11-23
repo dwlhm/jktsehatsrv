@@ -37,7 +37,7 @@ app.post('/ph/', (req, res) => {
     return res.json("berhasil");
   } catch (error) {
     console.log(error);
-    return res.json("gagal");
+    return res.json(error);
   }
 });
 
