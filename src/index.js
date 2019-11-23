@@ -31,7 +31,8 @@ app.post('/ph/', (req, res) => {
     db.collection("laporan").doc(String(randToken.generate(16))).set({
       jenis: "ph",
       nilai: nilai,
-      status: status
+      status: status,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     });
     return res.json("berhasil");
   } catch (error) {
@@ -47,7 +48,8 @@ app.post('/sampah/', (req, res) => {
     db.collection("laporan").doc(String(randToken.generate(16))).set({
       jenis: "sampah",
       nilai: nilai,
-      status: status
+      status: status,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     });
     return res.json("berhasil");
   } catch (error) {
@@ -63,7 +65,8 @@ app.post('/co2/', (req, res) => {
     db.collection("laporan").doc(String(randToken.generate(16))).set({
       jenis: "co2",
       nilai: nilai,
-      status: status
+      status: status,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     });
     return res.json("berhasil");
   } catch (error) {
@@ -86,7 +89,8 @@ app.post('/data/', (req, res) => {
       co2: nilaico2,
       statusPh: statusph,
       statusSampah: statussampah,
-      statusCo2: statusco2
+      statusCo2: statusco2,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
     });
     return res.json("berhasil");
   } catch (error) {
