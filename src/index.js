@@ -28,11 +28,16 @@ app.post('/ph/', (req, res) => {
   let nilai = String(req.body.nilai);
   let status = String(req.body.status);
   try {
-    db.collection("laporan").doc(String(randToken.generate(16))).set({
+    db.collection("laporan").add({
       jenis: "ph",
       nilai: nilai,
       status: status,
       date: firebase.firestore.FieldValue.serverTimestamp(),
+    }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id); 
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
     });
     return res.json("berhasil");
   } catch (error) {
@@ -45,11 +50,16 @@ app.post('/sampah/', (req, res) => {
   let nilai = String(req.body.nilai);
   let status = String(req.body.status);
   try {
-    db.collection("laporan").doc(String(randToken.generate(16))).set({
+    db.collection("laporan").add({
       jenis: "sampah",
       nilai: nilai,
       status: status,
       date: firebase.firestore.FieldValue.serverTimestamp(),
+    }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id); 
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
     });
     return res.json("berhasil");
   } catch (error) {
@@ -62,11 +72,16 @@ app.post('/co2/', (req, res) => {
   let nilai = String(req.body.nilai);
   let status = String(req.body.status);
   try {
-    db.collection("laporan").doc(String(randToken.generate(16))).set({
+    db.collection("laporan").add({
       jenis: "co2",
       nilai: nilai,
       status: status,
       date: firebase.firestore.FieldValue.serverTimestamp(),
+    }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id); 
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
     });
     return res.json("berhasil");
   } catch (error) {
@@ -83,7 +98,7 @@ app.post('/data/', (req, res) => {
   let statussampah = String(req.body.statusSampah);
   let statusco2 = String(req.body.statusCo2);
   try {
-    db.collection("rangkuman").doc(String(randToken.generate(16))).set({
+    db.collection("rangkuman").add({
       ph: nilaiph,
       sampah: nilaisampah,
       co2: nilaico2,
@@ -91,6 +106,11 @@ app.post('/data/', (req, res) => {
       statusSampah: statussampah,
       statusCo2: statusco2,
       date: firebase.firestore.FieldValue.serverTimestamp(),
+    }).then(function(docRef) {
+      console.log("Document written with ID: ", docRef.id); 
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
     });
     return res.json("berhasil");
   } catch (error) {
