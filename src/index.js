@@ -1,10 +1,10 @@
 require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
-const admin = require('firebase');
+const firebase = require('firebase');
 const app = express();
 
-admin.initializeApp({
+firebase.initializeApp({
   apiKey: "AIzaSyDprOR2qtd5B94usR8LwUbokXTNdteC4fk",
     authDomain: "se000-ec0b6.firebaseapp.com",
     databaseURL: "https://se000-ec0b6.firebaseio.com",
@@ -16,7 +16,7 @@ admin.initializeApp({
 
 });
 
-let db = admin.firestore();
+let db = firebase.firestore();
 
 
 app.use(express.json());
