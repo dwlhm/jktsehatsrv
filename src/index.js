@@ -37,15 +37,17 @@ app.route('/')
     res.json("jakartasehat");
   });
 
-app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
+app.get('/alat/airx/:co2/:kelembaban/:suhu/:lokasi', (req, res) => {
   let co2 = String(req.params.co2);
-    let status = String(req.params.status);
+  let kelembaban = String(req.params.kelembaban);
+    let suhu = String(req.params.suhu);
     let lokasi = String(req.params.lokasi);
 
     try {
       db.collection("airx").add({
         co2: co2,
-        status: status,
+        kelembaban: kelembaban,
+        suhu: suhu,
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
