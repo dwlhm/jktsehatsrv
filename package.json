@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "nodemon --exec babel-node src/index.js",
-=======
     "start": "node src/index.js",
->>>>>>> 7265e3ceabff66467725281626563a6379213f1c
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
