@@ -79,6 +79,7 @@ app.route('/airx/')
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      return res.json("sukses");
     } catch (error) {
       console.log(error);
       return res.json("error 1");
@@ -131,6 +132,7 @@ app.route('/trashx/')
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      return res.json("sukses");
     } catch (error) {
       console.log(error);
       return res.json("error 1");
@@ -183,6 +185,7 @@ app.route('/xflood/')
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      return res.json("sukses");
     } catch (error) {
       console.log(error);
       return res.json("error 1");
@@ -242,6 +245,7 @@ app.route('/xground/')
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      return res.json("sukses");
     } catch (error) {
       console.log(error);
       return res.json("error 1");
