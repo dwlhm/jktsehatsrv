@@ -37,6 +37,25 @@ app.route('/')
     res.json("jakartasehat");
   });
 
+app.get('/alat/airx/', (req, res) => {
+  let co2 = String(req.params.co2);
+    let status = String(req.params.status);
+    let lokasi = String(req.params.lokasi);
+
+    try {
+      db.collection("airx").add({
+        co2: co2,
+        status: status,
+        lokasi: lokasi,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      return res.json("sukses");
+    } catch (error) {
+      console.log(error);
+      return res.json("error 1");
+    }
+})
+
 app.route('/airx/:lokasi')
   .get(function (req, res) {
     // web
