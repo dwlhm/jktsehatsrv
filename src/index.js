@@ -37,7 +37,7 @@ app.route('/')
     res.json("jakartasehat");
   });
 
-app.get('/alat/airx/', (req, res) => {
+app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
   let co2 = String(req.params.co2);
     let status = String(req.params.status);
     let lokasi = String(req.params.lokasi);
