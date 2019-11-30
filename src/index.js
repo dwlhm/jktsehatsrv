@@ -42,7 +42,7 @@ app.route('/airx/:lokasi')
     // web
     let lokasi = String(req.params.lokasi);
     try {
-      db.collection("airx").where('lokasi', '==', lokasi).get()
+      db.collection("airx").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -95,7 +95,7 @@ app.route('/trashx/:lokasi')
     // web
     let lokasi = String(req.params.lokasi);
     try {
-      db.collection("trashx").where('lokasi', '==', lokasi).get()
+      db.collection("trashx").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -148,7 +148,7 @@ app.route('/xflood/:lokasi')
     // web
     let lokasi = String(req.params.lokasi);
     try {
-      db.collection("xflood").where('lokasi', '==', lokasi).get()
+      db.collection("xflood").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -203,7 +203,7 @@ app.route('/xground/:lokasi')
     let lokasi = String(req.params.lokasi);
 
     try {
-      db.collection("xground").where('lokasi', '==', lokasi).get()
+      db.collection("xground").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
