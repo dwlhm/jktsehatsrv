@@ -37,7 +37,7 @@ app.route('/')
     res.json("jakartasehat");
   });
 
-app.route('/airx/')
+app.route('/airx/:lokasi')
   .get(function (req, res) {
     // web
     let lokasi = String(req.params.lokasi);
@@ -90,7 +90,7 @@ app.route('/airx/')
     res.json("jakartasehat");
   });
 
-app.route('/trashx/')
+app.route('/trashx/:lokasi')
   .get(function (req, res) {
     // web
     let lokasi = String(req.params.lokasi);
@@ -143,7 +143,7 @@ app.route('/trashx/')
     res.json("jakartasehat");
   });
 
-app.route('/xflood/')
+app.route('/xflood/:lokasi')
   .get(function (req, res) {
     // web
     let lokasi = String(req.params.lokasi);
@@ -196,7 +196,7 @@ app.route('/xflood/')
     res.json("jakartasehat");
   });
 
-app.route('/xground/')
+app.route('/xground/:lokasi')
   .get(function (req, res) {
     // web
 
