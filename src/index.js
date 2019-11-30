@@ -321,7 +321,11 @@ app.post('/ph/', (req, res) => {
     res.json("gagal undefined salasatunya");
   } else {
     try {
+<<<<<<< HEAD
       db.collection("laporan").add({
+=======
+      db.collection("laporan").doc(String(randToken.generate(16))).set({
+>>>>>>> 7265e3ceabff66467725281626563a6379213f1c
         jenis: "ph",
         nilai: nilai,
         status: status,
