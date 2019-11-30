@@ -13,7 +13,6 @@ firebase.initializeApp({
     messagingSenderId: "494019541645",
     appId: "1:494019541645:web:303e2a41bdefaac674c0c4",
     measurementId: "G-GET0FY5F5W"
-
 });
 
 let db = firebase.firestore();
