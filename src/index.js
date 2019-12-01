@@ -58,6 +58,28 @@ app.get('/alat/airx/:co2/:kelembaban/:suhu/:lokasi', (req, res) => {
     }
 })
 
+app.get('/all/airx/', (req, res) => {
+  let lokasi = String(req.params.lokasi);
+    try {
+      db.collection("alat").where("alat", "==", "airx").limit(10).get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            snapshot.forEach(doc => {
+              data.push(doc.data());
+            })
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
 app.route('/airx/:lokasi')
   .get(function (req, res) {
     // web
