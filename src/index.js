@@ -58,6 +58,26 @@ app.get('/alat/airx/:co2/:kelembaban/:suhu/:lokasi', (req, res) => {
     }
 })
 
+app.get('/alat/xflood/:status/:ketinggian/:lokasi', (req, res) => {
+  let co2 = String(req.params.co2);
+  let kelembaban = String(req.params.kelembaban);
+    let suhu = String(req.params.suhu);
+    let lokasi = String(req.params.lokasi);
+
+    try {
+      db.collection("xflood").add({
+        status: status,
+        ketinggian: ketinggian,
+        lokasi: lokasi,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      return res.json("sukses");
+    } catch (error) {
+      console.log(error);
+      return res.json("error 1");
+    }
+})
+
 app.get('/all/airx/', (req, res) => {
     try {
       db.collection("alat").where("alat", "==", "airx").limit(10).get()
