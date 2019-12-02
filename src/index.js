@@ -59,9 +59,8 @@ app.get('/alat/airx/:co2/:kelembaban/:suhu/:lokasi', (req, res) => {
 })
 
 app.get('/alat/xflood/:status/:ketinggian/:lokasi', (req, res) => {
-  let co2 = String(req.params.co2);
-  let kelembaban = String(req.params.kelembaban);
-    let suhu = String(req.params.suhu);
+  let status = String(req.params.co2);
+  let ketinggian = String(req.params.ketinggian);
     let lokasi = String(req.params.lokasi);
 
     try {
