@@ -142,9 +142,9 @@ app.get('/all/trashx/', (req, res) => {
     }
 })
 
-app.get("/faq/", (reqq, res) => {
+app.get("/faq/", (req, res) => {
     try {
-      db.collection("faq").get()
+      db.collection("faqs").get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
