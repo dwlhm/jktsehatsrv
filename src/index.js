@@ -193,11 +193,24 @@ app.get('/data/airx/:lokasi', (req, res) => {
             res.json('no data');
           } else {  
             var data = [];
+            var data1 = [];
+            var data2 = [];
+            var data3 = [];
+            var data4 = [];
+            var data5 = [];
             snapshot.forEach(doc => {
-              data.push(doc.data());
+              data.push(doc.data().date.toDate());
+              data1.push(doc.data().co2);
+              data2.push(doc.data().kelembaban);
+              data3.push(doc.data().suhu);
+              data4.push(doc.data().status);
             })
-            res.json(data);
+            data5.push(data, data1, data2, data3, data4);
+            res.json(data5);
           } 
+        }).catch(error => {
+          console.log(error);
+          return res.send("error 2");
         })
     } catch (error) {
       console.log(error);
