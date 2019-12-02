@@ -142,6 +142,26 @@ app.get('/all/trashx/', (req, res) => {
     }
 })
 
+app.get("/faq/", (reqq, res) => {
+    try {
+      db.collection("faq").get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            snapshot.forEach(doc => {
+              data.push(doc.data());
+            })
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
 
 app.route('/airx/:lokasi')
   .get(function (req, res) {
