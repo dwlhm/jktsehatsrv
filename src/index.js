@@ -328,7 +328,7 @@ app.get('/profil/xground/:lokasi', (req, res) => {
 app.get('/data/xground/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
     try {
-      db.collection("xground").where("lokasi", "==", lokasi).orderBy("date", "desc").limit(10).get()
+      db.collection("groundx").where("lokasi", "==", lokasi).orderBy("date", "desc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
