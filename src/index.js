@@ -306,7 +306,7 @@ app.get('/data/xflood/:lokasi', (req, res) => {
 app.get('/profil/xground/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
     try {
-      db.collection("alat").where("alat", "==", "xground").where("state", "==", lokasi).limit(10).get()
+      db.collection("alat").where("alat", "==", "groundx").where("state", "==", lokasi).limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
