@@ -37,17 +37,38 @@ app.route('/')
     res.json("jakartasehat");
   });
 
-app.get('/alat/airx/:co2/:kelembaban/:suhu/:lokasi', (req, res) => {
+app.get('/alat/airx/:co2/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
   let co2 = String(req.params.co2);
   let kelembaban = String(req.params.kelembaban);
     let suhu = String(req.params.suhu);
     let lokasi = String(req.params.lokasi);
+  let status = String(req.params.status);
 
     try {
       db.collection("airx").add({
         co2: co2,
         kelembaban: kelembaban,
         suhu: suhu,
+        lokasi: lokasi,
+        status: status,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      return res.json("sukses");
+    } catch (error) {
+      console.log(error);
+      return res.json("error 1");
+    }
+})
+
+app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
+  let ketinggian = String(req.params.ketinggian);
+  let status = String(req.params.status);
+    let lokasi = String(req.params.lokasi);
+
+    try {
+      db.collection("xflood").add({
+        status: status,
+        ketinggian: ketinggian,
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
@@ -58,15 +79,34 @@ app.get('/alat/airx/:co2/:kelembaban/:suhu/:lokasi', (req, res) => {
     }
 })
 
-app.get('/alat/xflood/:status/:ketinggian/:lokasi', (req, res) => {
-  let status = String(req.params.co2);
-  let ketinggian = String(req.params.ketinggian);
+app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
+  let berat = String(req.params.berat);
+  let status = String(req.params.status);
     let lokasi = String(req.params.lokasi);
 
     try {
-      db.collection("xflood").add({
+      db.collection("trashx").add({
         status: status,
-        ketinggian: ketinggian,
+        berat: berat,
+        lokasi: lokasi,
+        date: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      return res.json("sukses");
+    } catch (error) {
+      console.log(error);
+      return res.json("error 1");
+    }
+})
+
+app.get('/alat/groundx/:ph/:status/:lokasi', (req, res) => {
+  let ph = String(req.params.ph);
+  let status = String(req.params.status);
+    let lokasi = String(req.params.lokasi);
+
+    try {
+      db.collection("groundx").add({
+        status: status,
+        ph: ph,
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
