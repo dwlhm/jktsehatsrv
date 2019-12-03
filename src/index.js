@@ -142,7 +142,7 @@ app.get('/all/airx/:subdistrict', (req, res) => {
 app.get('/all/xground/:subdistrict', (req, res) => {
   var subdistrict = req.params.subdistrict;
     try {
-      db.collection("alat").where("alat", "==", "xground").where("Subdistrict", "==", subdistrict).where("Subdistrict", "==", subdistrict).limit(10).get()
+      db.collection("alat").where("alat", "==", "groundx").where("Subdistrict", "==", subdistrict).where("Subdistrict", "==", subdistrict).limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
