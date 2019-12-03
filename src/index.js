@@ -229,7 +229,7 @@ app.get('/profil/airx/:lokasi', (req, res) => {
 app.get('/data/airx/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
     try {
-      db.collection("airx").where("lokasi", "==", lokasi).orderBy("date", "asc").limit(10).get()
+      db.collection("airx").where("lokasi", "==", lokasi).orderBy("date", "desc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -237,18 +237,12 @@ app.get('/data/airx/:lokasi', (req, res) => {
           } else {  
             var data = [];
             var data1 = [];
-            var data2 = [];
-            var data3 = [];
-            var data4 = [];
             var data5 = [];
             snapshot.forEach(doc => {
               data.push(doc.data().date.toDate());
               data1.push(doc.data().co2);
-              data2.push(doc.data().kelembaban);
-              data3.push(doc.data().suhu);
-              data4.push(doc.data().status);
             })
-            data5.push(data, data1, data2, data3, data4);
+            data5.push(data, data1);
             res.json(data5);
           } 
         }).catch(error => {
@@ -286,17 +280,21 @@ app.get('/profil/xflood/:lokasi', (req, res) => {
 app.get('/data/xflood/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
     try {
-      db.collection("xflood").where("lokasi", "==", lokasi).orderBy("date", "asc").limit(10).get()
+      db.collection("xflood").where("lokasi", "==", lokasi).orderBy("date", "desc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
             var data = [];
+            var data1 = [];
+            var data2 = [];
             snapshot.forEach(doc => {
-              data.push(doc.data());
+              data.push(doc.data().date.toDate());
+              data1.push(doc.data().ketinggian);
             })
-            res.json(data);
+            data2.push(data, data1);
+            res.json(data2);
           } 
         })
     } catch (error) {
@@ -330,17 +328,25 @@ app.get('/profil/xground/:lokasi', (req, res) => {
 app.get('/data/xground/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
     try {
-      db.collection("xground").where("lokasi", "==", lokasi).orderBy("date", "asc").limit(10).get()
+      db.collection("xground").where("lokasi", "==", lokasi).orderBy("date", "desc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
             var data = [];
+            var data1 = [];
+            var data2 = [];
+            var data3 = [];
+            var data4 = [];
             snapshot.forEach(doc => {
-              data.push(doc.data());
+              data.push(doc.data().date.toDate());
+              data1.push(doc.data().suhu);
+              data2.push(doc.data().kelembaban);
+              data3.push(doc.data().ph);
             })
-            res.json(data);
+            data4.push(data, data1, data2);
+            res.json(data4);
           } 
         })
     } catch (error) {
@@ -348,6 +354,7 @@ app.get('/data/xground/:lokasi', (req, res) => {
       return res.send("error 1");
     }
 })
+
 
 app.get('/profil/trashx/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
@@ -374,16 +381,20 @@ app.get('/profil/trashx/:lokasi', (req, res) => {
 app.get('/data/trashx/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
     try {
-      db.collection("trashx").where("lokasi", "==", lokasi).orderBy("date", "asc").limit(10).get()
+      db.collection("trashx").where("lokasi", "==", lokasi).orderBy("date", "desc").limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
             var data = [];
+            var data1 = [];
+            var data2 = [];
             snapshot.forEach(doc => {
-              data.push(doc.data());
+              data.push(doc.data().date.toDate());
+              data1.push(doc.data().berat);
             })
+            data2.push(data, data1);
             res.json(data);
           } 
         })
