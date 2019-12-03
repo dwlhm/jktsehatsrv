@@ -77,9 +77,10 @@ app.get('/alat/xflood/:status/:ketinggian/:lokasi', (req, res) => {
     }
 })
 
-app.get('/all/airx/', (req, res) => {
+app.get('/all/airx/:subdistrict', (req, res) => {
+  var subdistrict = req.params.subdistrict;
     try {
-      db.collection("alat").where("alat", "==", "airx").limit(10).get()
+      db.collection("alat").where("alat", "==", "airx").where("Subdistrict", "==", subdistrict).limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -98,9 +99,10 @@ app.get('/all/airx/', (req, res) => {
     }
 })
 
-app.get('/all/xground/', (req, res) => {
+app.get('/all/xground/:subdistrict', (req, res) => {
+  var subdistrict = req.params.subdistrict;
     try {
-      db.collection("alat").where("alat", "==", "xground").limit(10).get()
+      db.collection("alat").where("alat", "==", "xground").where("Subdistrict", "==", subdistrict).where("Subdistrict", "==", subdistrict).limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -119,9 +121,10 @@ app.get('/all/xground/', (req, res) => {
     }
 })
 
-app.get('/all/xflood/', (req, res) => {
+app.get('/all/xflood/:subdistrict', (req, res) => {
+  var subdistrict = req.params.subdistrict;
     try {
-      db.collection("alat").where("alat", "==", "xflood").limit(10).get()
+      db.collection("alat").where("alat", "==", "xflood").where("Subdistrict", "==", subdistrict).limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -140,9 +143,10 @@ app.get('/all/xflood/', (req, res) => {
     }
 })
 
-app.get('/all/trashx/', (req, res) => {
+app.get('/all/trashx/:subdistrict', (req, res) => {
+  var subdistrict = req.params.subdistrict;
     try {
-      db.collection("alat").where("alat", "==", "trashx").limit(10).get()
+      db.collection("alat").where("alat", "==", "trashx").where("Subdistrict", "==", subdistrict).limit(10).get()
         .then(snapshot => {
           if (snapshot.empty) {
             console.log('no data');
@@ -160,7 +164,6 @@ app.get('/all/trashx/', (req, res) => {
       return res.send("error 1");
     }
 })
-
 app.get('/profil/airx/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
     try {
