@@ -98,8 +98,10 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
     }
 })
 
-app.get('/alat/groundx/:ph/:status/:lokasi', (req, res) => {
+app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
   let ph = String(req.params.ph);
+  let kelembaban = String(req.params.kelembaban);
+  let suhu = String(req.params.suhu);
   let status = String(req.params.status);
     let lokasi = String(req.params.lokasi);
 
@@ -107,6 +109,8 @@ app.get('/alat/groundx/:ph/:status/:lokasi', (req, res) => {
       db.collection("groundx").add({
         status: status,
         ph: ph,
+        kelembaban: kelembaban,
+        suhu: suhu,
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
