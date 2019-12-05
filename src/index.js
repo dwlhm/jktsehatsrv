@@ -26,6 +26,7 @@ var port = process.env.PORT || 3001;
 
 var kolp;
 var banjir, sampah, tanah, udara;
+var bigboxkey = 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8';
 
 app.get("/kolp/:kondisi", (req, res) => {
   if (kolp === String(req.params.kondisi)) {
@@ -68,7 +69,7 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=kualitas%20udara%20didaerah%20anda%20kurang',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
             //handle success
@@ -84,7 +85,7 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
           method: 'post',
           url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
           data: 'msisdn=082121433085&content=kualitas%20udara%20telah%20diperbaiki',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
           })
           .then(function (response) {
               //handle success
@@ -128,7 +129,7 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=daerah%20anda%20berpotensi%20banjir',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
             //handle success
@@ -144,7 +145,7 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
           method: 'post',
           url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
           data: 'msisdn=082121433085&content=kondisi%20banjir%20telah%20ditangani',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
           })
           .then(function (response) {
               //handle success
@@ -188,7 +189,7 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=penampungan%20sampah%20daerah%20anda%20sudah%20penuh',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
             //handle success
@@ -204,7 +205,7 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
           method: 'post',
           url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
           data: 'msisdn=082121433085&content=kondisi%20banjir%20telah%20ditangani',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
           })
           .then(function (response) {
               //handle success
@@ -252,7 +253,7 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=kelembaban%20didaerah%20anda%20kurang',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
             //handle success
@@ -268,7 +269,7 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=kesuburan%20tanah%20didaerah%20anda%20telah%20diperbaiki',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
             //handle success
