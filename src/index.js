@@ -68,7 +68,7 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-        data: 'msisdn=082121433085&content=kualitas%20udara%20didaerah%20anda%20kurang',
+        data: 'msisdn=082121433085&content=kualitas%20udara%20didaerah%20anda%20kurang%20baik,%20silakan%20gunakan%20masker%20untuk%20kesehatan%20anda',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
@@ -84,7 +84,7 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
           axios({
           method: 'post',
           url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-          data: 'msisdn=082121433085&content=kualitas%20udara%20telah%20diperbaiki',
+          data: 'msisdn=082121433085&content=kualitas%20udara%20telah%20ditangani',
           headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
           })
           .then(function (response) {
@@ -128,7 +128,7 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-        data: 'msisdn=082121433085&content=daerah%20anda%20berpotensi%20banjir',
+        data: 'msisdn=082121433085&content=ketinggian%20air%20didaerah%20anda%20berpotensi%20menyebabkan%20banjir',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
@@ -144,7 +144,7 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
           axios({
           method: 'post',
           url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-          data: 'msisdn=082121433085&content=kondisi%20banjir%20telah%20ditangani',
+          data: 'msisdn=082121433085&content=ketinggian%20air%20yang%20berpotensi%20banjir%20telah%20ditangani',
           headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
           })
           .then(function (response) {
@@ -188,7 +188,7 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-        data: 'msisdn=082121433085&content=penampungan%20sampah%20daerah%20anda%20sudah%20penuh',
+        data: 'msisdn=082121433085&content=tempat%20penampungan%20sampah%20sementara%20didaerah%20anda%20sudah%20penuh',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
@@ -252,7 +252,7 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-        data: 'msisdn=082121433085&content=kelembaban%20didaerah%20anda%20kurang',
+        data: 'msisdn=082121433085&content=unsur%20kelembaban%20udara%20didaerah%20anda%20kurang%20baik',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
@@ -268,7 +268,7 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
-        data: 'msisdn=082121433085&content=kesuburan%20tanah%20didaerah%20anda%20telah%20diperbaiki',
+        data: 'msisdn=082121433085&content=kelembaban%20udara%20didaerah%20anda%20telah%20ditangani',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': bigboxkey }
         })
         .then(function (response) {
