@@ -14,6 +14,7 @@ firebase.initializeApp({
     messagingSenderId: "494019541645",
     appId: "1:494019541645:web:303e2a41bdefaac674c0c4",
     measurementId: "G-GET0FY5F5W"
+
 });
 
 let db = firebase.firestore();
@@ -45,9 +46,9 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
       if(status == "kurang") {
         axios({
         method: 'post',
-        url: 'myurl',
+        url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=kualitas%20udara%20didaerah%20anda%20kurang',
-        headers: {'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
         })
         .then(function (response) {
             //handle success
@@ -83,9 +84,9 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
       if(status == "kurang") {
         axios({
         method: 'post',
-        url: 'myurl',
-        data: 'msisdn=082121433085&content=daerah%20berpotensi%20banjir%20sekarang',
-        headers: {'Content-Type': 'multipart/form-data' }
+        url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
+        data: 'msisdn=082121433085&content=daerah%20anda%20berpotensi%20banjir',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
         })
         .then(function (response) {
             //handle success
@@ -121,9 +122,9 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
       if(status == "kurang") {
         axios({
         method: 'post',
-        url: 'myurl',
-        data: 'msisdn=082121433085&content=box%20sampah%20penuh',
-        headers: {'Content-Type': 'multipart/form-data' }
+        url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
+        data: 'msisdn=082121433085&content=penampungan%20sampah%20daerah%20anda%20sudah%20penuh',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
         })
         .then(function (response) {
             //handle success
@@ -163,9 +164,9 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
       if(status == "kurang") {
         axios({
         method: 'post',
-        url: 'myurl',
+        url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=kelembaban%20didaerah%20anda%20kurang',
-        headers: {'Content-Type': 'multipart/form-data' }
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
         })
         .then(function (response) {
             //handle success
