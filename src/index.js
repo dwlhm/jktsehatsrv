@@ -2,6 +2,7 @@ require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
 const firebase = require('firebase');
+const axios = require('axios');
 const app = express();
 
 firebase.initializeApp({
@@ -23,20 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 var port = process.env.PORT || 3001;
 
-app.route('/')
-  .get(function (req, res) {
-    // web
-    res.json("jakartasehat");
-  })
-  .post(function (req, res) {
-    // sensor
-    res.json("jakartasehat");
-  })
-  .put(function (req, res) {
-    // tambahan
-    res.json("jakartasehat");
-  });
-
 app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
   let co2 = String(req.params.co2);
   let kelembaban = String(req.params.kelembaban);
@@ -53,6 +40,25 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
         status: status,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("airx-"+ String(lokasi)).update({
+        status: status
+      })
+      if(status == "kurang") {
+        axios({
+        method: 'post',
+        url: 'myurl',
+        data: 'msisdn=082121433085&content=kualitas%20udara%20didaerah%20anda%20kurang',
+        headers: {'Content-Type': 'multipart/form-data' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+      }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -72,6 +78,25 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("xflood-"+ String(lokasi)).update({
+        status: status
+      })
+      if(status == "kurang") {
+        axios({
+        method: 'post',
+        url: 'myurl',
+        data: 'msisdn=082121433085&content=daerah%20berpotensi%20banjir%20sekarang',
+        headers: {'Content-Type': 'multipart/form-data' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+      }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -91,6 +116,25 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("trashx-"+ String(lokasi)).update({
+        status: status
+      })
+      if(status == "kurang") {
+        axios({
+        method: 'post',
+        url: 'myurl',
+        data: 'msisdn=082121433085&content=box%20sampah%20penuh',
+        headers: {'Content-Type': 'multipart/form-data' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+      }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -114,6 +158,25 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("groundx-"+ String(lokasi)).update({
+        status: status
+      })
+      if(status == "kurang") {
+        axios({
+        method: 'post',
+        url: 'myurl',
+        data: 'msisdn=082121433085&content=kelembaban%20didaerah%20anda%20kurang',
+        headers: {'Content-Type': 'multipart/form-data' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+      }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -121,8 +184,92 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
     }
 })
 
+app.get('/all/airx/', (req, res) => {
+  try {
+      db.collection("alat").where("alat", "==", "airx").get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            snapshot.forEach(doc => {
+              data.push(doc.data());
+            })
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
+app.get('/all/xflood/', (req, res) => {
+  try {
+      db.collection("alat").where("alat", "==", "xflood").get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            snapshot.forEach(doc => {
+              data.push(doc.data());
+            })
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
+app.get('/all/xground/', (req, res) => {
+  try {
+      db.collection("alat").where("alat", "==", "groundx").get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            snapshot.forEach(doc => {
+              data.push(doc.data());
+            })
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
+app.get('/all/trashx/', (req, res) => {
+  try {
+      db.collection("alat").where("alat", "==", "trashx").get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            snapshot.forEach(doc => {
+              data.push(doc.data());
+            })
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
 app.get('/all/airx/:subdistrict', (req, res) => {
-  var subdistrict = req.params.subdistrict;
+  var subdistrict = String(req.params.subdistrict);
     try {
       db.collection("alat").where("alat", "==", "airx").where("Subdistrict", "==", subdistrict).limit(10).get()
         .then(snapshot => {
@@ -208,27 +355,6 @@ app.get('/all/trashx/:subdistrict', (req, res) => {
       return res.send("error 1");
     }
 })
-app.get('/profil/airx/:lokasi', (req, res) => {
-  var lokasi = String(req.params.lokasi);
-    try {
-      db.collection("alat").where("alat", "==", "airx").where("state", "==", lokasi).limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              data.push(doc.data());
-            })
-            res.json(data);
-          } 
-        })
-    } catch (error) {
-      console.log(error);
-      return res.send("error 1");
-    }
-})
 
 app.get('/data/airx/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
@@ -252,28 +378,6 @@ app.get('/data/airx/:lokasi', (req, res) => {
         }).catch(error => {
           console.log(error);
           return res.send("error 2");
-        })
-    } catch (error) {
-      console.log(error);
-      return res.send("error 1");
-    }
-})
-
-app.get('/profil/xflood/:lokasi', (req, res) => {
-  var lokasi = String(req.params.lokasi);
-    try {
-      db.collection("alat").where("alat", "==", "xflood").where("state", "==", lokasi).limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              data.push(doc.data());
-            })
-            res.json(data);
-          } 
         })
     } catch (error) {
       console.log(error);
@@ -307,27 +411,6 @@ app.get('/data/xflood/:lokasi', (req, res) => {
     }
 })
 
-app.get('/profil/xground/:lokasi', (req, res) => {
-  var lokasi = String(req.params.lokasi);
-    try {
-      db.collection("alat").where("alat", "==", "groundx").where("state", "==", lokasi).limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              data.push(doc.data());
-            })
-            res.json(data);
-          } 
-        })
-    } catch (error) {
-      console.log(error);
-      return res.send("error 1");
-    }
-})
 
 app.get('/data/xground/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
@@ -360,28 +443,6 @@ app.get('/data/xground/:lokasi', (req, res) => {
 })
 
 
-app.get('/profil/trashx/:lokasi', (req, res) => {
-  var lokasi = String(req.params.lokasi);
-    try {
-      db.collection("alat").where("alat", "==", "trashx").where("state", "==", lokasi).limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              data.push(doc.data());
-            })
-            res.json(data);
-          } 
-        })
-    } catch (error) {
-      console.log(error);
-      return res.send("error 1");
-    }
-})
-
 app.get('/data/trashx/:lokasi', (req, res) => {
   var lokasi = req.params.lokasi;
     try {
@@ -408,11 +469,58 @@ app.get('/data/trashx/:lokasi', (req, res) => {
     }
 })
 
-app.get("/faq/", (req, res) => {
+app.get('/profil/airx/:lokasi', (req, res) => {
+  var lokasi = "airx-"+String(req.params.lokasi);
+  console.log(lokasi);
     try {
-      db.collection("faqs").get()
-        .then(snapshot => {
-          if (snapshot.empty) {
+      db.collection('alat').doc(String(lokasi)).get()
+        .then(doc => {
+          if (doc.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+            
+              data.push(doc.data());
+            
+            res.json(data);
+          } 
+        }).catch(err => {
+          console.log(err);
+          res.send("error 3");
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
+app.get('/profil/xflood/:lokasi', (req, res) => {
+  var lokasi = String(req.params.lokasi);
+    try {
+      db.collection("alat").doc("xflood"+lokasi).get()
+        .then(doc => {
+          if (doc.empty) {
+            console.log('no data');
+            res.json('no data');
+          } else {  
+            var data = [];
+              data.push(doc.data());
+            res.json(data);
+          } 
+        })
+    } catch (error) {
+      console.log(error);
+      return res.send("error 1");
+    }
+})
+
+app.get('/profil/xground/:lokasi', (req, res) => {
+  var lokasi = String(req.params.lokasi);
+    try {
+      db.collection("alat").doc("groundx"+lokasi).limit(10).get()
+        .then(doc => {
+          if (doc.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
@@ -429,225 +537,27 @@ app.get("/faq/", (req, res) => {
     }
 })
 
-app.route('/airx/:lokasi')
-  .get(function (req, res) {
-    // web
-    let lokasi = String(req.params.lokasi);
+app.get('/profil/trashx/:lokasi', (req, res) => {
+  var lokasi = String(req.params.lokasi);
     try {
-      db.collection("airx").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
+      db.collection("alat").doc("trashx"+lokasi).limit(10).get()
+        .then(doc => {
+          if (doc.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
             var data = [];
             snapshot.forEach(doc => {
-              var datas = {
-                "co2": doc.data().co2,
-                "status": doc.data().status,
-                "date": doc.data().date
-              };
-              data.push(datas);
-              res.json(data);
+              data.push(doc.data());
             })
+            res.json(data);
           } 
         })
     } catch (error) {
       console.log(error);
-      return res.json("error 1");
+      return res.send("error 1");
     }
-  })
-  .post(function (req, res) {
-    // sensor
-    
-    let co2 = String(req.body.co2);
-    let status = String(req.body.status);
-    let lokasi = String(req.body.lokasi);
-
-    try {
-      db.collection("airx").add({
-        co2: co2,
-        status: status,
-        lokasi: lokasi,
-        date: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      return res.json("sukses");
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .put(function (req, res) {
-    // tambahan
-    res.json("jakartasehat");
-  });
-
-app.route('/trashx/:lokasi')
-  .get(function (req, res) {
-    // web
-    let lokasi = String(req.params.lokasi);
-    try {
-      db.collection("trashx").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              var datas = {
-                "berat": doc.data().berat,
-                "status": doc.data().status,
-                "date": doc.data().date
-              };
-              data.push(datas);
-              res.json(data);
-            })
-          } 
-        })
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .post(function (req, res) {
-    // sensor
-    
-    let berat = String(req.body.berat);
-    let status = String(req.body.status);
-    let lokasi = String(req.body.lokasi);
-
-    try {
-      db.collection("trashx").add({
-        berat: berat,
-        status: status,
-        lokasi: lokasi,
-        date: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      return res.json("sukses");
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .put(function (req, res) {
-    // tambahan
-    res.json("jakartasehat");
-  });
-
-app.route('/xflood/:lokasi')
-  .get(function (req, res) {
-    // web
-    let lokasi = String(req.params.lokasi);
-    try {
-      db.collection("xflood").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              var datas = {
-                "ketinggian": doc.data().ketinggian,
-                "status": doc.data().status,
-                "date": doc.data().date
-              };
-              data.push(datas);
-              res.json(data);
-            })
-          } 
-        })
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .post(function (req, res) {
-    // sensor
-    
-    let ketinggian = String(req.body.ketinggian);
-    let status = String(req.body.status);
-    let lokasi = String(req.body.lokasi);
-
-    try {
-      db.collection("xflood").add({
-        ketinggian: ketinggian,
-        status: status,
-        lokasi: lokasi,
-        date: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      return res.json("sukses");
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .put(function (req, res) {
-    // tambahan
-    res.json("jakartasehat");
-  });
-
-app.route('/xground/:lokasi')
-  .get(function (req, res) {
-    // web
-
-    let lokasi = String(req.params.lokasi);
-
-    try {
-      db.collection("xground").where('lokasi', '==', lokasi).orderBy("date", "asc").limit(10).get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('no data');
-            res.json('no data');
-          } else {  
-            var data = [];
-            snapshot.forEach(doc => {
-              var datas = {
-                "ph": doc.data().ph,
-                "suhu": doc.data().suhu,
-                "kelembaban": doc.data().kelembaban,
-                "status": doc.data().status,
-                "date": doc.data().date
-              };
-              data.push(datas);
-              res.json(data);
-            })
-          } 
-        })
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .post(function (req, res) {
-    // sensor
-    
-    let ph = String(req.body.ph);
-    let suhu = String(req.body.suhu);
-    let kelembaban = String(req.body.kelembaban);
-    let lokasi = String(req.body.lokasi);
-
-    try {
-      db.collection("xground").add({
-        ph: ph,
-        suhu: suhu,
-        kelembaban: kelembaban,
-        status: status,
-        lokasi: lokasi,
-        date: firebase.firestore.FieldValue.serverTimestamp()
-      })
-      return res.json("sukses");
-    } catch (error) {
-      console.log(error);
-      return res.json("error 1");
-    }
-  })
-  .put(function (req,   res) {
-    // tambahan
-    res.json("jakartasehat");
-  });
-
+})
 
 app.listen(port, () => {
   console.log(`Example app on port ${port}`);
