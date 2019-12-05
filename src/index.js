@@ -518,7 +518,7 @@ app.get('/profil/xflood/:lokasi', (req, res) => {
 app.get('/profil/xground/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
     try {
-      db.collection("alat").doc("groundx"+lokasi).limit(10).get()
+      db.collection("alat").doc("groundx-"+lokasi).limit(10).get()
         .then(doc => {
           if (doc.empty) {
             console.log('no data');
