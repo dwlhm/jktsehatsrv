@@ -349,7 +349,7 @@ app.get('/data/xground/:lokasi', (req, res) => {
               data2.push(doc.data().kelembaban);
               data3.push(doc.data().ph);
             })
-            data4.push(data, data1, data2);
+            data4.push(data, data1, data2, data3);
             res.json(data4);
           } 
         })
@@ -399,7 +399,7 @@ app.get('/data/trashx/:lokasi', (req, res) => {
               data1.push(doc.data().berat);
             })
             data2.push(data, data1);
-            res.json(data);
+            res.json(data2);
           } 
         })
     } catch (error) {
