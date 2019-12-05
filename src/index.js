@@ -6,14 +6,14 @@ const axios = require('axios');
 const app = express();
 
 firebase.initializeApp({
-  apiKey: "AIzaSyDprOR2qtd5B94usR8LwUbokXTNdteC4fk",
-    authDomain: "se000-ec0b6.firebaseapp.com",
-    databaseURL: "https://se000-ec0b6.firebaseio.com",
-    projectId: "se000-ec0b6",
-    storageBucket: "se000-ec0b6.appspot.com",
-    messagingSenderId: "494019541645",
-    appId: "1:494019541645:web:303e2a41bdefaac674c0c4",
-    measurementId: "G-GET0FY5F5W"
+    apiKey: "AIzaSyBW-8apNDGsHLNnwO7Cqe0SBHxq00C7NxA",
+    authDomain: "sever-c6560.firebaseapp.com",
+    databaseURL: "https://sever-c6560.firebaseio.com",
+    projectId: "sever-c6560",
+    storageBucket: "sever-c6560.appspot.com",
+    messagingSenderId: "1085881768054",
+    appId: "1:1085881768054:web:6901ce26366cf738df2757",
+    measurementId: "G-Q497VEBBXZ"
 
 });
 
