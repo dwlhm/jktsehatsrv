@@ -498,7 +498,7 @@ app.get('/profil/airx/:lokasi', (req, res) => {
 app.get('/profil/xflood/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
     try {
-      db.collection("alat").doc("xflood"+lokasi).get()
+      db.collection("alat").doc("xflood-"+lokasi).get()
         .then(doc => {
           if (doc.empty) {
             console.log('no data');
@@ -518,16 +518,14 @@ app.get('/profil/xflood/:lokasi', (req, res) => {
 app.get('/profil/xground/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
     try {
-      db.collection("alat").doc("groundx-"+lokasi).limit(10).get()
+      db.collection("alat").doc("groundx-"+lokasi).get()
         .then(doc => {
           if (doc.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
             var data = [];
-            snapshot.forEach(doc => {
               data.push(doc.data());
-            })
             res.json(data);
           } 
         })
@@ -540,16 +538,14 @@ app.get('/profil/xground/:lokasi', (req, res) => {
 app.get('/profil/trashx/:lokasi', (req, res) => {
   var lokasi = String(req.params.lokasi);
     try {
-      db.collection("alat").doc("trashx"+lokasi).limit(10).get()
+      db.collection("alat").doc("trashx-"+lokasi).get()
         .then(doc => {
           if (doc.empty) {
             console.log('no data');
             res.json('no data');
           } else {  
             var data = [];
-            snapshot.forEach(doc => {
               data.push(doc.data());
-            })
             res.json(data);
           } 
         })
