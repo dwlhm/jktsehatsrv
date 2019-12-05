@@ -24,6 +24,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 var port = process.env.PORT || 3001;
 
+var kolp;
+var banjir, sampah, tanah, udara;
+
+app.get("/kolp/:kondisi", (req, res) => {
+  if (kolp === String(req.params.kondisi)) {
+    res.send("sama");  
+  } else {
+    kolp = String(req.params.kondisi);
+    res.send("dah terganti");
+  }
+
+  
+})
+
 app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
   let co2 = String(req.params.co2);
   let kelembaban = String(req.params.kelembaban);
@@ -40,10 +54,16 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
         status: status,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+
+      db.collection("alat").doc("airx-"+ String(lokasi)).get().then(doc => {
+        udara = doc.data().status;
+      });
       db.collection("alat").doc("airx-"+ String(lokasi)).update({
         status: status
       })
-      if(status == "kurang") {
+
+      if(status == "kurang" && udara !== "kurang") {
+        udara = "kurang";
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
@@ -58,7 +78,25 @@ app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
             //handle error
             console.log(response);
         });
-      }
+      } else if(status == "baik" && udara == "kurang") {
+         udara = "baik";
+          axios({
+          method: 'post',
+          url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
+          data: 'msisdn=082121433085&content=kualitas%20udara%20telah%20diperbaiki',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+          })
+          .then(function (response) {
+              //handle success
+              console.log(response);
+          })
+          .catch(function (response) {
+              //handle error
+              console.log(response);
+          });
+      } else {
+      udara = status;
+    }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -78,10 +116,14 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("xflood-"+ String(lokasi)).get().then(doc => {
+        banjir = doc.data().status;
+      })
       db.collection("alat").doc("xflood-"+ String(lokasi)).update({
         status: status
       })
-      if(status == "kurang") {
+      if(status == "kurang" && banjir !== "kurang") {
+        banjir = "kurang";
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
@@ -96,7 +138,25 @@ app.get('/alat/xflood/:ketinggian/:status/:lokasi', (req, res) => {
             //handle error
             console.log(response);
         });
-      }
+      } else if(status == "baik" && banjir == "kurang") {
+         banjir = "baik";
+          axios({
+          method: 'post',
+          url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
+          data: 'msisdn=082121433085&content=kondisi%20banjir%20telah%20ditangani',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+          })
+          .then(function (response) {
+              //handle success
+              console.log(response);
+          })
+          .catch(function (response) {
+              //handle error
+              console.log(response);
+          });
+      } else {
+      banjir = status;
+    }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -116,10 +176,14 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("trashx-"+ String(lokasi)).get().then( doc => {
+        sampah = doc.data().status;
+      })
       db.collection("alat").doc("trashx-"+ String(lokasi)).update({
         status: status
       })
-      if(status == "kurang") {
+      if(status == "kurang" && sampah !== "kurang") {
+        sampah = "kurang";
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
@@ -134,7 +198,25 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
             //handle error
             console.log(response);
         });
-      }
+      }  else if(status == "baik" && sampah == "kurang") {
+         sampah = "baik";
+          axios({
+          method: 'post',
+          url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
+          data: 'msisdn=082121433085&content=kondisi%20banjir%20telah%20ditangani',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+          })
+          .then(function (response) {
+              //handle success
+              console.log(response);
+          })
+          .catch(function (response) {
+              //handle error
+              console.log(response);
+          });
+      } else {
+      banjir = status;
+    }
       return res.json("sukses");
     } catch (error) {
       console.log(error);
@@ -158,14 +240,34 @@ app.get('/alat/groundx/:ph/:kelembaban/:suhu/:status/:lokasi', (req, res) => {
         lokasi: lokasi,
         date: firebase.firestore.FieldValue.serverTimestamp()
       })
+      db.collection("alat").doc("groundx-"+ String(lokasi)).get().then(doc => {
+        tanah = doc.data().status;
+      })
       db.collection("alat").doc("groundx-"+ String(lokasi)).update({
         status: status
       })
-      if(status == "kurang") {
+      if(status == "kurang" && tanah !== "kurang") {
+        tanah = "kurang";
         axios({
         method: 'post',
         url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
         data: 'msisdn=082121433085&content=kelembaban%20didaerah%20anda%20kurang',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
+        })
+        .then(function (response) {
+            //handle success
+            console.log(response);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+      } else if(status == "baik" && tanah == "kurang") {
+        tanah = "baik";
+        axios({
+        method: 'post',
+        url: 'https://api.thebigbox.id/sms-notification/1.0.0/messages',
+        data: 'msisdn=082121433085&content=kesuburan%20tanah%20didaerah%20anda%20telah%20diperbaiki',
         headers: {'Content-Type': 'application/x-www-form-urlencoded', 'x-api-key': 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8' }
         })
         .then(function (response) {
