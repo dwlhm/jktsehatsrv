@@ -26,7 +26,7 @@ var port = process.env.PORT || 3001;
 
 var kolp;
 var banjir, sampah, tanah, udara;
-var bigboxkey = 'cTcyTtVC0sXPCetNFmochuhH4msjdIl8';
+var bigboxkey = 'sNXYeU73io97jeS3B0jHXWzuRNEHgHyU';
 
 app.get("/kolp/:kondisi", (req, res) => {
   if (kolp === String(req.params.kondisi)) {
