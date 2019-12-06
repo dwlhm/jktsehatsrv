@@ -39,6 +39,20 @@ app.get("/kolp/:kondisi", (req, res) => {
   
 })
 
+app.get("/summary/:subdistrict", (req, res) => {
+  var subdistrict = String(req.params.subdistrict);
+  
+  db.collection("alat").where("Subdistrict", "==", subdistrict).get().then( snapshot => {
+    var data = [];
+    snapshot.forEach( doc => {
+      console.log(doc.data());
+      data.push(doc.data());  
+    })
+    res.send(data);
+  })
+  
+})
+
 app.get('/alat/airx/:co2/:status/:lokasi', (req, res) => {
   let co2 = String(req.params.co2);
   let kelembaban = String(req.params.kelembaban);
