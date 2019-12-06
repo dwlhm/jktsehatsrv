@@ -183,7 +183,12 @@ app.get('/alat/trashx/:berat/:status/:lokasi', (req, res) => {
   let berat = String(req.params.berat);
   let status = String(req.params.status);
     let lokasi = String(req.params.lokasi);
-
+if (Number(berat) > 500) {
+      status = "kurang";
+    } else {
+      status = "baik";
+    }
+    
     try {
       db.collection("trashx").add({
         status: status,
